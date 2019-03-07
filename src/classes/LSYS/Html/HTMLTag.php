@@ -392,7 +392,7 @@ class HTMLTag{
 	/**
 	 * 修复HTML内容中不完整(没有主域名的)url链接地址
 	 */
-	static function link_add_host($html,$host){
+	static function linkAddHost($html,$host){
 		if (preg_match('/src=[\s]*["\']\//isU',$html)){
 			$html=preg_replace('/src=[\s]*["\']\//isU','src="'.$host.'/', $html);
 		}
@@ -406,7 +406,7 @@ class HTMLTag{
 	 * @param string $html 网页源代码
 	 * @param string $charset 指定编码
 	 */
-	static public function replace_charset($html,$charset){
+	static public function replaceCharset($html,$charset){
 		$html=preg_replace(
 				'/(<meta[^>]+charset[\s]*=[\s]*[\'"]?[\s]*)([^>\'" ]+)([^>]+)/is',
 				'$1'.$charset.'$3',
@@ -419,7 +419,7 @@ class HTMLTag{
 	 * @param string $html 网页源代码
 	 * @param string $charset 指定编码
 	 */
-	static public function set_charset($html,$charset,$orgin_charset=null){
+	static public function setCharset($html,$charset,$orgin_charset=null){
 		if ($orgin_charset===null){
 			if(preg_match(
 					'/<meta[^>]+charset[\s]*=[\s]*[\'"]([^>\'" ]+)[\'"]/isU',
@@ -433,12 +433,12 @@ class HTMLTag{
 		}else{
 			$html=iconv($orgin_charset, $charset.'//IGNORE', $html);
 		}
-		return self::replace_charset($html, $charset);
+		return self::replaceCharset($html, $charset);
 	}
 	/**
 	 * 得到文本里的第一张图片
 	 */
-	static public function first_img_src($string){
+	static public function firstImgSrc($string){
 		if(preg_match('/<img[^>]+src=[\'"](.+)[\'"]/isU',$string,$arr)){
 			return $arr[1];
 		}
@@ -473,7 +473,7 @@ EOF;
 	/**
 	 * 传入EMBED 解析出src地址
 	 */
-	static public function embed_src($embed){
+	static public function embedSrc($embed){
 		$texth=preg_replace('/\s*/', '', $embed);
 		if(empty($texth)) return '';
 		libxml_use_internal_errors(true);
@@ -530,7 +530,7 @@ EOF;
 	 * @param	array	$attr		attributes for the tag
 	 * @return	string	the javascript code containing email
 	 */
-	public static function mailto_safe($email, $text = null, $subject = null, $attr = '')
+	public static function mailtoSafe($email, $text = null, $subject = null, $attr = '')
 	{
 		$text or $text = str_replace('@', '[at]', $email);
 		

@@ -27,10 +27,10 @@ echo new bform();
 // 	'name2'=>'姓名2',
 // );
 // echo (new Form)->label($label)
-// 	->add_tips(array(
+// 	->addTips(array(
 // 		'tips 111','tips 3333',
 // 	))
-// 	->add_tips(array(
+// 	->addTips(array(
 // 		'name'=>'tips 111','tips 3333',
 // 	))
 // 	->rule(array(
@@ -39,21 +39,21 @@ echo new bform();
 // 	array(Form::INPUT_TEXT,array("name1")),
 // 	array(Form::INPUT_TEXT,array("name3")),
 // 	array(Form::INPUT_SUBMIT),
-// ))->set_data(new LSYS\Html\Form\Data\ArrData($ttt));
+// ))->setData(new LSYS\Html\Form\Data\ArrData($ttt));
 
 
 
 //方式三
 // $form=new Form();
-// $form->add_tips("bbbb");
-// $form->add_input_hidden("bbb");
-// $form->add_input_checkbox("check",array("item1"=>"Item1","item2"=>"Item2"),"Check label");
-// $form->add_input_file("pic","Pic label","fileinput");
-// $form->add_input_password("pass","Pass label");
-// $form->add_input_radio("radio",array("radio1"=>"Radio1","radio2"=>"Radio2"),"Radio label");
-// $form->add_input_select("select",array("select1"=>"Select1","s2"=>"Select2"),"Select label");
-// $form->add_input_text("text","Text label");
-// $form->add_input_textarea("textarea","Textarea label");
-// $form->add_input_button("bbb", "BUTTON");
-// $form->add_input_submit("Submit");
+// $form->addTips("bbbb");
+// $form->addInputHidden("bbb");
+// $form->addInputCheckbox("check",array("item1"=>"Item1","item2"=>"Item2"),"Check label");
+// $form->addInputFile("pic","Pic label","fileinput");
+// $form->addInputPassword("pass","Pass label");
+// $form->addInputRadio("radio",array("radio1"=>"Radio1","radio2"=>"Radio2"),"Radio label");
+// $form->addInputSelect("select",array("select1"=>"Select1","s2"=>"Select2"),"Select label");
+// $form->addInputText("text","Text label");
+// $form->addInputTextarea("textarea","Textarea label");
+// $form->addInputButton("bbb", "BUTTON");
+// $form->addInputSubmit("Submit");
 // echo $form->render();

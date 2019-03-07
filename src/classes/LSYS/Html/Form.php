@@ -75,7 +75,7 @@ class Form implements DataHtml{
 	 * @param string $name
 	 * @return \LSYS\Html\Form
 	 */
-	public  function add_tips($message)
+	public  function addTips($message)
 	{
 		if (!is_array($message))$message=array($message);
 		foreach ($message as $k=>$v){
@@ -95,7 +95,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_custom(Input $input)
+	public  function addInputCustom(Input $input)
 	{
 		$this->rule[]=array($input);
 		return $this;
@@ -111,7 +111,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_hidden($name, array $attributes = NULL)
+	public  function addInputHidden($name, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_HIDDEN,func_get_args());
 		return $this;
@@ -127,7 +127,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_password($name,$label=NULL, array $attributes = NULL)
+	public  function addInputPassword($name,$label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_PASSWORD,func_get_args());
 		return $this;
@@ -142,7 +142,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_text($name,$label=NULL, array $attributes = NULL)
+	public  function addInputText($name,$label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_TEXT,func_get_args());
 		return $this;
@@ -157,7 +157,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_file($name,$label=NULL,$upload_name='file', array $attributes = NULL)
+	public  function addInputFile($name,$label=NULL,$upload_name='file', array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_FILE,func_get_args());
 		return $this;
@@ -174,7 +174,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_checkbox($name, array $items=NULL, $label=NULL, array $attributes = NULL)
+	public  function addInputCheckbox($name, array $items=NULL, $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_CHECKBOX,func_get_args());
 		return $this;
@@ -192,7 +192,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_radio($name, array $items, $label=NULL, array $attributes = NULL)
+	public  function addInputRadio($name, array $items, $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_RADIO,func_get_args());
 		return $this;
@@ -210,7 +210,7 @@ class Form implements DataHtml{
 	 * @uses    HTML::attributes
 	 * @uses    HTML::chars
 	 */
-	public  function add_input_textarea($name, $label=NULL, array $attributes = NULL)
+	public  function addInputTextarea($name, $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_TEXTAREA,func_get_args());
 		return $this;
@@ -229,7 +229,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    HTML::attributes
 	 */
-	public  function add_input_select($name, array $items, $label=NULL,array $attributes = NULL)
+	public  function addInputSelect($name, array $items, $label=NULL,array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_SELECT,func_get_args());
 		return $this;
@@ -245,21 +245,21 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function add_input_submit($value,$name=null, array $attributes = NULL)
+	public  function addInputSubmit($value,$name=null, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_SUBMIT,func_get_args());
 		return $this;
 	}
-	public  function add_input_button($value,$name, array $attributes = NULL)
+	public  function addInputButton($value,$name, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_BUTTON,func_get_args());
 		return $this;
 	}
-	public function set_data(Data $formdata){
+	public function setData(Data $formdata){
 		$this->formdata=$formdata;
 		return $this;
 	}
-	protected function _tips_tag($message,$name){
+	protected function _tipsTag($message,$name){
 		$tip_attr=isset(self::$attr_map['tips_item'])?self::$attr_map['tips_item']:[];
 		return '<span'.HTMLTag::attributes($tip_attr).'>'.HTMLTag::chars($message).'</span>';
 	}
@@ -309,7 +309,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -333,7 +333,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -359,7 +359,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -397,7 +397,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -423,7 +423,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -446,7 +446,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -468,7 +468,7 @@ class Form implements DataHtml{
 					
 					$_tags.='<div'.HTMLTag::attributes($tips_attr).'>';
 					if (isset($tips[$name])){
-						$_tags.=$this->_tips_tag($tips[$name], $name);
+						$_tags.=$this->_tipsTag($tips[$name], $name);
 						unset($tips[$name]);
 					}
 					$_tags.='</div>';
@@ -500,7 +500,7 @@ class Form implements DataHtml{
 			}
 		}
 		foreach ($tips as $k=>$v){
-			$open.=$this->_tips_tag($v, $k);
+			$open.=$this->_tipsTag($v, $k);
 		}
 		$close=FormTag::close();
 		return $open.implode("\n", $tags).$close;

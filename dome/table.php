@@ -27,8 +27,8 @@ $label=array(
 	'name1'=>'姓名2',
 	'name3'=>'姓名2',
 );
-echo (new Table($label))->head_attr(array(
+echo (new Table($label))->headAttr(array(
 	//'name'=>array("class"=>"ddd")
-))->set_data((new ArrayObject($ttt))->getIterator());
+))->setData((new ArrayObject($ttt))->getIterator());
 
 // echo ltable($label,$ttt);

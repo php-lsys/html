@@ -7,4 +7,4 @@ $ttt=array(
 	'c'=>'bbbddddddddddd',
 	'd'=>'bbbddddddddd',
 );
-echo (new Li(true))->set_data($ttt);
+echo (new Li(true))->setData($ttt);

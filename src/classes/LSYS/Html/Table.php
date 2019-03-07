@@ -12,15 +12,15 @@ class Table implements DataHtml{
 		$this->_header=$header;
 		$this->_attr=$attributes;
 	}
-	public function head_attr(array $attr){
+	public function headAttr(array $attr){
 		$this->_hattr=$attr;
 		return $this;
 	}
-	public function set_data(\Iterator $iterator){
+	public function setData(\Iterator $iterator){
 		$this->_iterator=$iterator;
 		return $this;
 	}
-	public function set_index($index_header){
+	public function setIndex($index_header){
 		$this->_index_header=$index_header;
 		return $this;
 	}
@@ -28,7 +28,7 @@ class Table implements DataHtml{
 		
 		$tbody=$thead='';
 		foreach ($this->_iterator as $k=>$v){
-			if (is_object($v)&&method_exists($v, "as_array"))$v=$v->as_array();
+			if (is_object($v)&&method_exists($v, "as_array"))$v=$v->asArray();
 			if (!is_array($v))continue;
 			if ($this->_header===true){
 				$this->_header=array_keys($v);

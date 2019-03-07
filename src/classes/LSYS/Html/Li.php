@@ -9,7 +9,7 @@ class Li implements DataHtml{
 		$this->_attr=$attributes;
 		$this->_isindex=$is_index;
 	}
-	public function set_data(array $data){
+	public function setData(array $data){
 		$this->_data=$data;
 		return $this;
 	}
