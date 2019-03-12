@@ -28,7 +28,7 @@ class Table implements DataHtml{
 		
 		$tbody=$thead='';
 		foreach ($this->_iterator as $k=>$v){
-			if (is_object($v)&&method_exists($v, "as_array"))$v=$v->asArray();
+			if (is_object($v)&&method_exists($v, "asArray"))$v=$v->asArray();
 			if (!is_array($v))continue;
 			if ($this->_header===true){
 				$this->_header=array_keys($v);
