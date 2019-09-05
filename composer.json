@@ -2,7 +2,6 @@
 	"name": "lsys/html",
 	"type" : "library",
 	"license": "Apache-2.0",
-
 	"description" : "lsys module html",
 	"autoload":{
 		"psr-4": {
