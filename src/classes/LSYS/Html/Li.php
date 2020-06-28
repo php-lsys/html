@@ -13,7 +13,7 @@ class Li implements DataHtml{
 		$this->_data=$data;
 		return $this;
 	}
-	public function render(){
+	public function render():string{
 		if ($this->_isindex){
 			$i=[];
 			foreach ($this->_data as $k=>$v){

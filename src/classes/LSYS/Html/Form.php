@@ -64,13 +64,13 @@ class Form implements DataHtml{
 	 * @param array $attributes
 	 * @return \LSYS\Html\Form
 	 */
-	public function attr($action,array $attributes){
+	public function attr(string $action,array $attributes){
 		$this->attr=func_get_args();
 		return $this;
 	}
 	/**
 	 * add top tip message
-	 * @param string $message
+	 * @param string||array $message
 	 * @param int $timeout
 	 * @param string $name
 	 * @return \LSYS\Html\Form
@@ -111,7 +111,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputHidden($name, array $attributes = NULL)
+	public  function addInputHidden(string $name, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_HIDDEN,func_get_args());
 		return $this;
@@ -127,7 +127,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputPassword($name,$label=NULL, array $attributes = NULL)
+	public  function addInputPassword(string  $name,$label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_PASSWORD,func_get_args());
 		return $this;
@@ -142,7 +142,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputText($name,$label=NULL, array $attributes = NULL)
+	public  function addInputText(string  $name,string $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_TEXT,func_get_args());
 		return $this;
@@ -157,7 +157,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputFile($name,$label=NULL,$upload_name='file', array $attributes = NULL)
+	public  function addInputFile(string  $name,string  $label=NULL,string  $upload_name='file', array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_FILE,func_get_args());
 		return $this;
@@ -174,7 +174,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputCheckbox($name, array $items=NULL, $label=NULL, array $attributes = NULL)
+	public  function addInputCheckbox(string  $name, array $items=NULL, string  $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_CHECKBOX,func_get_args());
 		return $this;
@@ -192,7 +192,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputRadio($name, array $items, $label=NULL, array $attributes = NULL)
+	public  function addInputRadio(string  $name, array $items, $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_RADIO,func_get_args());
 		return $this;
@@ -210,7 +210,7 @@ class Form implements DataHtml{
 	 * @uses    HTML::attributes
 	 * @uses    HTML::chars
 	 */
-	public  function addInputTextarea($name, $label=NULL, array $attributes = NULL)
+	public  function addInputTextarea(string  $name,string  $label=NULL, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_TEXTAREA,func_get_args());
 		return $this;
@@ -229,7 +229,7 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    HTML::attributes
 	 */
-	public  function addInputSelect($name, array $items, $label=NULL,array $attributes = NULL)
+	public  function addInputSelect(string  $name, array $items,string  $label=NULL,array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_SELECT,func_get_args());
 		return $this;
@@ -245,12 +245,12 @@ class Form implements DataHtml{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public  function addInputSubmit($value,$name=null, array $attributes = NULL)
+	public  function addInputSubmit(string $value,string $name=null, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_SUBMIT,func_get_args());
 		return $this;
 	}
-	public  function addInputButton($value,$name, array $attributes = NULL)
+	public  function addInputButton(string $value,string $name, array $attributes = NULL)
 	{
 		$this->rule[]=array(self::INPUT_BUTTON,func_get_args());
 		return $this;
@@ -259,19 +259,19 @@ class Form implements DataHtml{
 		$this->formdata=$formdata;
 		return $this;
 	}
-	protected function _tipsTag($message,$name){
+	protected function _tipsTag(string $message){
 		$tip_attr=isset(self::$attr_map['tips_item'])?self::$attr_map['tips_item']:[];
 		return '<span'.HTMLTag::attributes($tip_attr).'>'.HTMLTag::chars($message).'</span>';
 	}
-	protected function _label($name){
+	protected function _label(string  $name){
 		if (isset($this->label[$name]))return $this->label[$name];
 		return $name;
 	}
-	protected function _data($name){
+	protected function _data(string  $name){
 		if ($this->formdata instanceof Data) return $this->formdata->get($name);
 		return null;
 	}
-	public function render($render=self::RENDER_HTML|self::RENDER_RES){
+	public function render(int $render=self::RENDER_HTML|self::RENDER_RES):string{
 		$tags=array();
 		$open=call_user_func_array(array(FormTag::class,'open'), $this->attr);
 		

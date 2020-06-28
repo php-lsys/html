@@ -10,7 +10,7 @@ class ArrData implements Data{
 	 * @param string $key
 	 * @return string
 	 */
-	public function get($key){
+	public function get(string $key):?string {
 		if (isset($this->_arr[$key])) return $this->_arr[$key];
 		return null;
 	}

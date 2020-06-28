@@ -24,7 +24,7 @@ class Table implements DataHtml{
 		$this->_index_header=$index_header;
 		return $this;
 	}
-	public function render($render=self::RENDER_HTML|self::RENDER_RES){
+	public function render($render=self::RENDER_HTML|self::RENDER_RES):string{
 		
 		$tbody=$thead='';
 		foreach ($this->_iterator as $k=>$v){

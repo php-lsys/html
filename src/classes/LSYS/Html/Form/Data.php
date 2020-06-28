@@ -5,5 +5,5 @@ interface Data{
 	 * @param string $key
 	 * @return string
 	 */
-	public function get($key);
+    public function get(string $key);
 }

@@ -22,12 +22,12 @@ class FormTag{
 	 * @uses    URL::site
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function open($action = NULL, array $attributes = NULL)
+    public static function open(?string $action = NULL, array $attributes = NULL):string
 	{
 		// Add the form action to the attributes
 		$attributes['action'] = $action;
 		// Only accept the default character set
-		$attributes['accept-charset'] = Core::$charset;
+		$attributes['accept-charset'] = Core::charset();
 		if ( ! isset($attributes['method']))
 		{
 			// Use POST method
@@ -42,7 +42,7 @@ class FormTag{
 	 *
 	 * @return  string
 	 */
-	public static function close()
+	public static function close():string
 	{
 		return '</form>';
 	}
@@ -58,7 +58,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function input($name, $value = NULL, array $attributes = NULL)
+	public static function input(string $name, string $value = NULL, array $attributes = NULL):string
 	{
 		// Set the input name
 		if (!empty($name)) $attributes['name'] = $name;
@@ -82,7 +82,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function hidden($name, $value = NULL, array $attributes = NULL)
+	public static function hidden(string $name,string  $value = NULL, array $attributes = NULL):string
 	{
 		$attributes['type'] = 'hidden';
 		return FormTag::input($name, $value, $attributes);
@@ -98,7 +98,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function password($name, $value = NULL, array $attributes = NULL)
+	public static function password(string  $name, string  $value = NULL, array $attributes = NULL):string 
 	{
 		$attributes['type'] = 'password';
 		return FormTag::input($name, $value, $attributes);
@@ -113,7 +113,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function file($name, array $attributes = NULL)
+	public static function file(string  $name, array $attributes = NULL):string
 	{
 		$attributes['type'] = 'file';
 		return FormTag::input($name, NULL, $attributes);
@@ -130,7 +130,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function checkbox($name, $value = NULL, $checked = FALSE, array $attributes = NULL)
+	public static function checkbox(string  $name,string  $value = NULL, bool $checked = FALSE, array $attributes = NULL):string 
 	{
 		$attributes['type'] = 'checkbox';
 		if ($checked === TRUE)
@@ -153,7 +153,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function radio($name, $value = NULL, $checked = FALSE, array $attributes = NULL)
+	public static function radio(string  $name, string $value = NULL, bool $checked = FALSE, array $attributes = NULL):string 
 	{
 		$attributes['type'] = 'radio';
 		if ($checked === TRUE)
@@ -176,7 +176,7 @@ class FormTag{
 	 * @uses    HTMLTag::attributes
 	 * @uses    HTMLTag::chars
 	 */
-	public static function textarea($name, $body = '', array $attributes = NULL, $double_encode = TRUE)
+	public static function textarea(string  $name, string  $body = '', array $attributes = NULL, bool $double_encode = TRUE):string 
 	{
 		// Set the input name
 		$attributes['name'] = $name;
@@ -198,7 +198,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function select($name, array $options = NULL, $selected = NULL, array $attributes = NULL)
+	public static function select(string  $name, array $options = NULL, $selected = NULL, array $attributes = NULL):string
 	{
 		// Set the input name
 		$attributes['name'] = $name;
@@ -284,7 +284,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function submit($name, $value, array $attributes = NULL)
+	public static function submit(string $name,?string $value, array $attributes = NULL):string
 	{
 		$attributes['type'] = 'submit';
 		return FormTag::input($name, $value, $attributes);
@@ -301,7 +301,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    FormTag::input
 	 */
-	public static function image($name, $value, array $attributes = NULL, $index = FALSE)
+	public static function image(string $name,?string  $value, array $attributes = NULL, $index = FALSE):string 
 	{
 		$attributes['type'] = 'image';
 		return FormTag::input($name, $value, $attributes);
@@ -318,7 +318,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function button($name, $body, array $attributes = NULL)
+	public static function button(string $name, ?string  $body, array $attributes = NULL):string 
 	{
 		// Set the input name
 		$attributes['name'] = $name;
@@ -335,7 +335,7 @@ class FormTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function label($input, $text = NULL, array $attributes = NULL)
+	public static function label(string $input, ?string $text = NULL, array $attributes = NULL):string 
 	{
 		if ($text === NULL)
 		{

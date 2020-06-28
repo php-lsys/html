@@ -9,7 +9,8 @@ class Uri{
 	 * @param string $path URL地址
 	 * @return string 
 	 */
-	static public function clear($path){
+    static public function clear(string $path):string{
+	    $arr=[];
 		if (preg_match('/^([a-zA-Z0-9]*:\/\/)(.*)/is',$path,$arr)){
 			$para=preg_replace('/[\s\/\\\]{1,}/i','/',@$arr[2]);
 			$path=@$arr[1].trim($para,'/') ;
@@ -27,7 +28,7 @@ class Uri{
 	 * @param array $var如array('a'=>'b','d'='f') or string如a=b&c=d
 	 * @return string
 	 */
-	static public function add($url,$var){
+	static public function add(?string $url,array $var=null):?string{
 		$temp = array();
 		//统一存到数组里去,参数名作为键名,参数值作为键值
 		$url = trim($url);
@@ -92,7 +93,7 @@ class Uri{
 	 * @param string $key
 	 * @return string
 	 */
-	static public function del($url,$key){
+	static public function del(?string $url,?string $key):?string{
 		if (empty($key))
 			return $url;
 		if(strpos($url, "?")!==false){
@@ -135,7 +136,7 @@ class Uri{
 	 * @param array $prams
 	 * @return array
 	 */
-	static public function fill($url,array $prams){
+	static public function fill(?string $url,array $prams=null):array{
 		$url=trim($url,'?');
 		$data=array();
 		foreach ($prams as $k=>$v){

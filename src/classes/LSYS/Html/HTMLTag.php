@@ -54,9 +54,9 @@ class HTMLTag{
 	 * @param   boolean $double_encode  encode existing entities
 	 * @return  string
 	 */
-	public static function chars($value, $double_encode = TRUE)
+	public static function chars(?string $value, bool  $double_encode = TRUE):?string
 	{
-		return htmlspecialchars( (string) $value, ENT_QUOTES, Core::$charset, $double_encode);
+		return htmlspecialchars( (string) $value, ENT_QUOTES, Core::charset(), $double_encode);
 	}
 	/**
 	 * Convert all applicable characters to HTML entities. All characters
@@ -69,9 +69,9 @@ class HTMLTag{
 	 * @param   boolean $double_encode  encode existing entities
 	 * @return  string
 	 */
-	public static function entities($value, $double_encode = TRUE)
+	public static function entities(?string $value, bool $double_encode = TRUE):?string
 	{
-		return htmlentities( (string) $value, ENT_QUOTES, Core::$charset, $double_encode);
+	    return htmlentities( (string) $value, ENT_QUOTES, Core::charset(), $double_encode);
 	}
 	/**
 	 * Create HTML link anchors. Note that the title is not escaped, to allow
@@ -87,7 +87,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function anchor($uri, $title = NULL, array $attributes = NULL)
+	public static function anchor(?string $uri, ?string $title = NULL, array $attributes = NULL):string 
 	{
 		if ($title === NULL)
 		{
@@ -118,7 +118,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function mailto($email, $title = NULL, array $attributes = NULL)
+	public static function mailto(?string $email, ?string $title = NULL, array $attributes = NULL):string 
 	{
 		if ($title === NULL)
 		{
@@ -139,7 +139,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function style($file, array $attributes = NULL)
+	public static function style(?string $file, array $attributes = NULL):string
 	{
 		// Set the stylesheet link
 		$attributes['href'] = $file;
@@ -161,7 +161,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function script($file, array $attributes = NULL)
+	public static function script(?string $file, array $attributes = NULL):string
 	{
 		// Set the script link
 		$attributes['src'] = $file;
@@ -181,7 +181,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function image($file, array $attributes = NULL)
+	public static function image(?string $file, array $attributes = NULL):string
 	{
 		// Add the image link
 		if (!empty($file))$attributes['src'] = $file;
@@ -199,7 +199,7 @@ class HTMLTag{
 	 * @return  string
 	 * @uses    HTMLTag::attributes
 	 */
-	public static function video($file, array $attributes = NULL)
+	public static function video(?string $file, array $attributes = NULL):string
 	{
 		// Add the image link
 		$attributes['src'] = $file;
@@ -261,7 +261,7 @@ class HTMLTag{
 	/**
 	 * 清理,整理,闭合 HTML字符串
 	 */
-	static public function repair($html){
+	static public function repair(?string $html):string{
 		libxml_use_internal_errors(true);
 		$texth=preg_replace('/\s*/', '', $html);
 		if(empty($texth))
@@ -392,7 +392,7 @@ class HTMLTag{
 	/**
 	 * 修复HTML内容中不完整(没有主域名的)url链接地址
 	 */
-	static function linkAddHost($html,$host){
+	static function linkAddHost(?string $html,?string $host):string{
 		if (preg_match('/src=[\s]*["\']\//isU',$html)){
 			$html=preg_replace('/src=[\s]*["\']\//isU','src="'.$host.'/', $html);
 		}
@@ -406,7 +406,7 @@ class HTMLTag{
 	 * @param string $html 网页源代码
 	 * @param string $charset 指定编码
 	 */
-	static public function replaceCharset($html,$charset){
+	static public function replaceCharset(?string $html,?string $charset):string{
 		$html=preg_replace(
 				'/(<meta[^>]+charset[\s]*=[\s]*[\'"]?[\s]*)([^>\'" ]+)([^>]+)/is',
 				'$1'.$charset.'$3',
@@ -419,7 +419,7 @@ class HTMLTag{
 	 * @param string $html 网页源代码
 	 * @param string $charset 指定编码
 	 */
-	static public function setCharset($html,$charset,$orgin_charset=null){
+	static public function setCharset(?string $html,?string $charset,?string $orgin_charset=null):string{
 		if ($orgin_charset===null){
 			if(preg_match(
 					'/<meta[^>]+charset[\s]*=[\s]*[\'"]([^>\'" ]+)[\'"]/isU',
@@ -438,87 +438,11 @@ class HTMLTag{
 	/**
 	 * 得到文本里的第一张图片
 	 */
-	static public function firstImgSrc($string){
+	static public function firstImgSrc(?string $string):?string{
 		if(preg_match('/<img[^>]+src=[\'"](.+)[\'"]/isU',$string,$arr)){
 			return $arr[1];
 		}
 		return ;
-	}
-	/**
-	 * 创建EMBED代码
-	 * @param string $swf_url
-	 * @param number $width
-	 * @param number $height
-	 * @return string
-	 */
-	static public function embed($swf_url,$disable_open_window=false,$width="100%",$height="100%"){
-		if($disable_open_window){
-			$acc=' allowScriptAccess="never" allownetworking="internal"';
-			$oacc=' <param name="allowscriptaccess" value="never" /> <param name="allownetworking" value="internal" />';
-		}else{
-			$acc='allowscriptaccess="always" ';
-			$oacc='  <param name="allowscriptaccess" value="always" /> ';
-		}
-		$embed=<<<EOF
-			<object width="{$width}" height="{$height}">
-				<param name="allowfullscreen" value="true" />
-				{$oacc}
-				<param name="movie" value="{$swf_url}" />
-				<param name="wmode" value="transparent">
-				<embed src="{$swf_url}" type="application/x-shockwave-flash" {$acc} allowfullscreen="true" width="{$width}" height="{$height}"  wmode="transparent" ></embed>
-			</object>
-EOF;
-				return $embed;
-	}
-	/**
-	 * 传入EMBED 解析出src地址
-	 */
-	static public function embedSrc($embed){
-		$texth=preg_replace('/\s*/', '', $embed);
-		if(empty($texth)) return '';
-		libxml_use_internal_errors(true);
-		$doc = new \DOMDocument();
-		$doc->loadHTML($embed);
-		try{
-			$el=$doc->documentElement->childNodes->item(0)->childNodes->item(0);
-			switch ($el->tagName){
-				case 'object':
-					$src=$el->getAttribute("data")?:$el->getAttribute("movie");
-					$vars=$el->getAttribute("flashvars");
-					foreach ($el->childNodes as $v){
-						if($v instanceof \DOMElement){
-							if($v->getAttribute("name")=="movie"
-									||$v->getAttribute("name")=="data"){
-										$src=$v->getAttribute("value");
-							}else if ($v->getAttribute("name")=="flashvars") {
-								$vars=$v->getAttribute("value");
-							}
-						}
-					}
-					if($vars)
-						(strpos($src, '?')===false)?
-						($src.='?'.$vars):
-						($src.='&'.$vars);
-						return $src;
-						break;
-				case 'embed':
-					$src=$el->getAttribute("src");
-					$vars=$el->getAttribute("flashvars");
-					if($vars)
-						(strpos($src, '?')===false)?
-						($src.='?'.$vars):
-						($src.='&'.$vars);
-						return $src;
-						break;
-				case 'iframe':
-					return $el->getAttribute("src");
-					break;
-				default:
-					return '';
-			}
-		}catch (\Exception $e){
-			return '';
-		}
 	}
 	/**
 	 * Creates a mailto link with Javascript to prevent bots from picking up the
@@ -530,7 +454,7 @@ EOF;
 	 * @param	array	$attr		attributes for the tag
 	 * @return	string	the javascript code containing email
 	 */
-	public static function mailtoSafe($email, $text = null, $subject = null, $attr = '')
+	public static function mailtoSafe(?string $email, ?string $text = null, ?string $subject = null, ?string $attr = ''):string
 	{
 		$text or $text = str_replace('@', '[at]', $email);
 		
